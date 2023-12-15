@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giáng sinh Chuyển động</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: url('./img/nen.jpg') no-repeat center center fixed;
+            background-size: cover;
+            height: auto;
+            width: auto;
+        }
+
+        .gift-box {
+            position: absolute;
+            bottom: 10%;
+            left: 43%;
+            transform: translate(-50%, 50%) translateX(10px);
+            cursor: pointer;
+            transition: transform 0.5s ease-in-out;
+            animation: shake 2s linear infinite;
+        }
+
+        .gift-box img {
+            max-width: 380px;
+            max-height: 380px;
+        }
+
+        .gift-box.open {
+            transform: translate(-50%, 0) translateX(10px);
+        }
+
+        .snowflake {
+            position: absolute;
+            background-color: #ffffff; /* Màu trắng */
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            opacity: 0; /* Ẩn đối tượng ban đầu */
+            animation: fall 5s linear infinite;
+        }
+
+        .reindeer {
+            position: absolute;
+            top: 1%;
+            left: 40%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 50px;
+        }
+
+        .polar-bear {
+            position: absolute;
+            bottom: 10%;
+            right: 10%;
+            max-width: 100px;
+            max-height: 100px;
+        }
+
+        .snowman {
+            position: absolute;
+            bottom: 40px;
+            left: 10%;
+            max-width: 100px;
+            max-height: 100px;
+        }
+
+        .merry-christmas {
+            position: absolute;
+            bottom: 1%;
+            left: 40%;
+            transform: translateX(-50%);
+            font-size: 50px;
+            font-weight: bold;
+            color: #ffffff; /* Màu trắng */
+            text-align: center;
+            font-style: italic; /* Thêm kiểu nghiêng chữ */
+            animation: bounce 2s linear infinite;
+        }
+
+        @keyframes moveTree {
+            0%, 100% {
+                transform: scale(0.5);
+            }
+            50% {
+                transform: scale(0.55);
+            }
+        }
+
+        @keyframes fall {
+            0% {
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(10px);
+            }
+            50% {
+                transform: translateX(-10px);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hộp quà -->
+    <div class="gift-box" onclick="openGift()">
+        <img src="./img/hopQua.png" alt="Gift Box">
+    </div>
+
+    <!-- Cây Tuần lộc -->
+    <div class="reindeer">
+        <img src="./img/tuanLoc.gif" height="300px" alt="Reindeer">
+    </div>
+
+    <!-- Con gấu tuyết -->
+    <div class="polar-bear">
+        <img src="./img/nguoiTuyet.jpg" height="150px" alt="Polar Bear">
+    </div>
+
+    <!-- Gấu tuyết ở dưới gốc trái -->
+    <div class="snowman">
+        <img src="./img/ngoiSao.png" height="100px" alt="Snowman">
+    </div>
+
+    <!-- Dòng chữ Merry Christmas -->
+    <div class="merry-christmas">Merry Christmas</div>
+
+    <!-- Tạo hiệu ứng chấm trắng -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Số lượng chấm trắng
+            var numberOfSnowflakes = 100;
+
+            // Thêm chấm trắng vào body
+            for (var i = 0; i < numberOfSnowflakes; i++) {
+                createSnowflake();
+            }
+
+            // Hàm tạo chấm trắng
+            function createSnowflake() {
+                var snowflake = document.createElement("div");
+                snowflake.className = "snowflake";
+                snowflake.style.left = Math.random() * window.innerWidth + "px";
+                snowflake.style.animationDuration = 2 + Math.random() * 3 + "s"; // Thay đổi thời gian rơi
+                document.body.appendChild(snowflake);
+            }
+        });
+
+        // Xử lý sự kiện click vào hộp quà
+        function openGift() {
+            var giftBox = document.querySelector(".gift-box");
+            var giftImage = document.querySelector(".gift-box img");
+
+            // Thêm hiệu ứng chạy lên chạy xuống
+            giftBox.style.transition = "transform 0.5s ease-in-out";
+            giftBox.style.transform = "translate(-50%, -50%) translateY(-20px)";
+
+            // Hiển thị ảnh khi hộp quà mở ra
+            setTimeout(function () {
+                giftImage.src = "./img/em.jpg"; // Thay đổi đường dẫn ảnh
+            }, 500); // Đợi 0.5s (thời gian của transition) trước khi thay đổi ảnh
+
+            // Reset hiệu ứng chạy lên chạy xuống sau khi ảnh đã được thay đổi
+            setTimeout(function () {
+                giftBox.style.transition = "transform 0.5s ease-in-out";
+                giftBox.style.transform = "translate(-50%, -50%)";
+            }, 1000); // Thời gian tổng cộng của hiệu ứng (0.5s chạy lên + 0.5s chạy xuống)
+        }
+    </script>
+</body>
+</html>
